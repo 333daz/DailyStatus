@@ -1,0 +1,139 @@
+#headDiv {
+
+	float: left;
+	width: 200px;
+	padding: 20px 5px 5px 20px;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Avenir-Heavy";
+	color: #4f6776;
+	display: inline-block;
+}
+
+#contentDiv {
+	float: left;
+	margin: 10px;
+	padding: 10px;
+	max-width: 1200px;
+	
+}
+
+
+
+.subHeadDiv {
+	width: 100%;
+	margin: 30px 10px 10px 30px;	
+	font-size: 15px;
+	font-weight: bold;
+	font-family: "Avenir-Heavy";
+}
+
+
+#statusInputDiv {
+	padding: 10px;
+	font-family: "Avenir";
+	
+}
+
+.subDiv {
+	float: left;
+	margin: 10px 20px;
+}
+
+.inputDivHead {
+	margin: 5px 0px;
+}
+
+.statusInputFields {
+	background-color: transparent;
+	border-radius: 0px;
+	border: 1px solid #929292;
+	box-sizing: border-box;
+	padding-left: 10px;
+	height: 30px;
+	font-size: 14px;
+	/*-webkit-appearance: none;*/
+}
+
+.statusInputFields:hover {
+	border-color: #4f73f0;
+}
+
+.dropdownField {
+
+	background-color: transparent;
+	border: 0px;
+	outline: 1px inset rgba(146,146,146,0.5);
+	box-sizing: border-box;
+	padding-left: 10px;
+	height: 30px;
+	font-size: 14px;
+}
+
+.dropdownField:hover {
+	outline: 1px inset #4f73f0;
+}
+
+#descriptionDiv {
+	width: 540px;
+	float: left;
+	color: #666;
+	font-size: 14px;
+}
+
+#saveButton {
+	background-color: #296a92;
+	width: 70px;
+	height: 30px;
+	border-width: 0px;
+	outline: 0px;
+	border-radius: 5px;
+	margin: 10px;
+	font-size: 14px;
+	color: white;
+	font-weight: bold;
+}
+
+#historyDiv {
+	margin-top: 40px;
+
+}
+
+.dayHistoryDiv {
+	border: 1px solid #D6D5D5;
+	margin-bottom: 10px;
+	font-family: "Avenir";
+	color: #666;
+	padding: 10px 10px 10px 20px;
+	animation: load 1s;
+	display: none;
+}
+
+@keyframes load {
+	from {opacity: 0}
+	to {opacity: 1}
+}
+
+.leftDiv {
+	float: left;
+	margin-right: 10px;
+	width: 15%;
+	font-size: smaller;
+	box-sizing: border-box;
+}
+
+.middleDiv {
+	box-sizing: border-box;
+	float: left;
+	margin: 0px 10px;
+	width: 65%;
+	height: 90px;
+	font-size: initial;
+	font-weight: bold;
+	border-left: 1px solid #D6D5D5;
+	border-right: 1px solid #D6D5D5;
+}
+.rightDiv {
+	float: left;
+	font-size: smaller;
+}

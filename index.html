@@ -2,8 +2,165 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="assets/css/commonStyles.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/status.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="javascript/status.js"></script>
 </head>
 <body>
+	<header>
+       	<img id="logo" src="assets/images/qbLogo.png">
+       	<nav>
+       		<select id="searchTypePicker"></select>
+       		<div id="searchDiv">
+       			<input type="text" id="searchBar" placeholder="Search"></input>
+	       		<button id="searchButton">
+	       			<i class="fa fa-search fa-lg" style="color: #929292;"></i>
+	       		</button>
+       		</div>
+       		
+       		<i class="fa fa-sign-out fa-lg" id="logoutButton"></i>
+       	</nav>
+    </header>
+
+    
+
+    <main>
+    	<!-- <aside ></aside> -->
+    	<div id="headDiv"> Daily Status</div>
+    	<div id="contentDiv">
+    		
+    		<form onsubmit="return false" style="border: 1px solid #D6D5D5;">
+    			<div class="subHeadDiv">Bursts</div>
+	    		<div id="statusInputDiv">
+	    			<div class="subDiv">
+	    				<label class="inputDivHead">Date</label>
+	    				<div>
+	    					<select class="dropdownField" id="datePicker" style="width: 160px;">
+		    					
+		    				</select>
+	    				</div>
+	    			</div>
+
+	    			<div class="subDiv">
+	    				<label class="subDivHead">Project</label>
+	    				<div>
+	    					<input type="text" class="statusInputFields" value="N/A" style="width: 300px;"></input>
+	    				</div>
+	    			</div>
+
+	    			<div class="subDiv">
+	    				<label class="subDivHead">Activity type</label>
+	    				<div>
+	    					<select class="dropdownField" id="activityTypePicker" style="width: 175px;">
+		    					
+		    				</select>
+	    				</div>
+	    				</div>
+
+
+	    			<div class="subDiv">
+	    				<label class="subDivHead">Time Spent (hours:minutes)</label>
+	    				<div>
+	    					<select class="dropdownField" id="hourPicker" style="width: 90px;">
+		    					
+		    				</select>
+		    				<select class="dropdownField" id="minutePicker" style="width: 90px;">
+		    					
+		    				</select>
+	    				</div>
+	    			</div>
+
+
+	    			<div class="subDiv">
+	    				<label class="subDivHead">Activity Description</label>
+	    				<div>
+	    					<textarea class="statusInputFields" rows="5" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234" style="width: 535px; height: 80px; resize: none;"></textarea>
+	    					
+	    				</div>
+	    			</div>
+
+
+	    			<div class="subDiv" id="descriptionDiv">
+	    				<p>
+	    					Enter the actual number of hours against each of your project(s). If you're working on multiple projects, submit separate entry for each project. <br/>
+							If you're not assigned to a project, select the option "N/A" from Project drop down. You should book the time against a project if you are contributing your effort, whether you are allocated or not. If you have been working on the project regularly, ask the PM to formally allocate you. <br/>
+							Please make sure you're not booking time for organizational (non project) activities like pre-sales, trainings, your non project related self learning activity to any project.
+	    				</p>
+
+	    				<p>
+	    					<br/>
+	    					Also, if you are learning something, mention the platform name too.(Java, iPhone etc).<br/>
+							Directions:<br/> <br/>
+
+	 						<i class="fa fa-asterisk"></i>Do not include lunch time and long breaks greater than 15 minutes. <br/>
+	 						<i class="fa fa-asterisk"></i>You are expected to put in 8 hours a day. <br/>
+	 						<i class="fa fa-asterisk"></i>However report actual hours worked whether it is lesser or greater than 8 hours.<br/>
+	    				</p>
+	    				
+	    			</div>
+
+	    			
+
+	    			
+	    			<div style="clear: both;"></div>
+	    		</div>
+
+	    		<div align="center">
+	    			<button type="submit" id="saveButton" onclick="saveButtonPressed()">Save</button>
+	    		</div>
+	    		<div style="clear: both;"></div>
+
+    		</form>
+
+    		<div id="historyDiv">
+    			<div class="subHeadDiv"> My History</div>
+
+    			<div class="dayHistoryDiv" id="day1">
+
+    				<div style="padding: 10px;">
+
+    					<div class="leftDiv">
+
+	    					<div> end-of-day</div>
+
+	    					<div class="statusDate">date</div>
+
+	    					<div style="margin-top: 5px;">posted on:</div>
+	    					<div class="postedDate"> post date</div>
+	    					<div class="postedTime">post time</div>
+	    				</div>
+
+
+	    				<div class="middleDiv">
+	    					<div class="description" style="padding-left: 20px;">Description</div>
+	    				</div>
+
+	    				<div class="rightDiv">
+	    					<div class="time">8:00 hour(s)</div>
+	    					<div class="activityType"> Activity type</div>
+	    					<div class="projectName" style="padding-top: 5px;">project name</div>
+	    				</div>
+
+    				</div>
+
+
+
+    				<div style="clear: both;"></div>
+    				
+    			</div>
+
+	    	</div>
+    		
+    	</div>
+
+    	
+    	
+    </main>
+    <div style="clear: both;"></div>
+    <footer>
+    	
+    </footer>
 
 </body>
 </html>
