@@ -1,10 +1,6 @@
-var i = 3;
-
 window.onload = function () {
     
    loadDropDownData();
-    
-    
 }
 
 
@@ -45,7 +41,7 @@ function parseJSONObject(dropdownID, jsonURL) {
   return list;
 }
 
-//populate the dropdown
+//populate the dropdown using parsed object
 
 function populateDropdown(dropdown, parsedObject) {
     
@@ -63,22 +59,27 @@ function populateDropdown(dropdown, parsedObject) {
 
 function populateDateDropdown() {
     
-    var today = new Date;
-    today.setDate(today.getDate() - 7);
+    var date = new Date;
+    date.setDate(date.getDate() - 7);
     for(var i = 0; i < 8; i++) {
         var optionElement = document.createElement("option");
-        var dd = (today.getDate() < 10? "0": "") + today.getDate();
-        var mm = ((today.getMonth()+1) < 10? "0": "") + (today.getMonth()+1);
-        var yyyy = today.getFullYear();
-        optionElement.textContent = dd + "/" + mm + "/" + yyyy;
+        optionElement.textContent = getFormatedDate(date);
         optionElement.value = 8-(i+1) + "";
         if ((i+1) == 8) {
             optionElement.selected = true;
         }
         document.getElementById("datePicker").appendChild(optionElement);
-        today.setDate(today.getDate() + 1);
+        date.setDate(date.getDate() + 1);
     }
     
+}
+// get date in dd/mm/yyyy format
+function getFormatedDate(date) {
+        var dd = (date.getDate() < 10? "0": "") + date.getDate();
+        var mm = ((date.getMonth()+1) < 10? "0": "") + (date.getMonth()+1);
+        var yyyy = date.getFullYear();
+        return dd + "/" + mm + "/" + yyyy;
+        
 }
 
 function populateTimeDropdown() {
@@ -103,21 +104,79 @@ function populateTimeDropdown() {
       }
 }
 
-
+//Save button Action
 function saveButtonPressed() {
     
-    var div = document.getElementById('day1'),
-    clone = div.cloneNode(true);
-    clone.id = "day" + i++;
-    clone.style.display = "block";
-// document.getElementById("historyDiv").appendChild(clone);
-// document.getElementById("historyDiv").firstElementChild = document.getElementById(clone.id);
-document.getElementById("historyDiv").insertBefore(clone, document.getElementById("historyDiv").firstElementChild);
+    if (nullCheckFields() == false) {
+        var statusInstance = new statusObject();
+        statusInstance.setValues();
+        var historyInstance = new statusHistory(statusInstance);
+        var historySubDiv = document.createElement('div');
+        historySubDiv.innerHTML = historyInstance.domElement;
+        document.getElementById("historyDiv").insertBefore(historySubDiv, document.getElementById("historyDiv").firstElementChild);
+        document.getElementById("activityDescription").value = "";
+        saveNotification();
+    }
+    
+}
 
-document.getElementById(clone.id).getElementsByClassName("time")[0].innerText = "3:00 hour(s)";
-document.getElementById(clone.id).getElementsByClassName("statusDate")[0].innerText = document.getElementById("datePicker").options[datePicker.selectedIndex].text;
 
+function saveNotification() {
+    document.getElementById("notification").style.right = "10px";
+    setTimeout(function() {
+        document.getElementById("notification").style.right = "-500px";
+    }, 5000);
+}
 
+// object
+var statusObject = function () {
+    statusDate: "";
+    projectName: "";
+    activityType: "";
+    timeSpent: "";
+    activityDescription: "";
+    currentDate: "";
+    currentTime: "";
+} 
 
+statusObject.prototype.setValues = function () {
+  this.statusDate = document.getElementById("datePicker").options[document.getElementById("datePicker").selectedIndex].text;
+  
+  this.projectName = document.getElementById("projectName").value;
+  
+  this.activityType = document.getElementById("activityTypePicker").options[document.getElementById("activityTypePicker").selectedIndex].text
+  
+  this.timeSpent = document.getElementById("hourPicker").options[document.getElementById("hourPicker").selectedIndex].text 
+  + ":" + 
+  document.getElementById("minutePicker").options[document.getElementById("minutePicker").selectedIndex].text;
+  
+  this.activityDescription = document.getElementById("activityDescription").value;
+  
+  var now = new Date();
+  
+  this.currentDate = getFormatedDate(now);
+  
+  this.currentTime = getFormatedTime(now);
+}
 
+// null ckeck textFields
+function nullCheckFields() {
+    if (document.getElementById("activityDescription").value == "") {
+        document.getElementById("activityDescription").style.borderColor = "red";
+        document.getElementById("errorLabel").style.visibility = "visible";
+        return true;
+    }
+    
+    else {
+        document.getElementById("activityDescription").style.borderColor = "#929292";
+        document.getElementById("errorLabel").style.visibility = "hidden";
+        return false;
+    }
+}
+
+function getFormatedTime(date) {
+    var hh = (date.getHours() < 10? "0": "") + date.getHours();
+    var mm = ((date.getMinutes()+1) < 10? "0": "") + (date.getMinutes()+1);
+    var ss = ((date.getSeconds()+1) < 10? "0": "") + (date.getSeconds()+1);
+    return hh + ":" + mm + ":" + ss;
 }

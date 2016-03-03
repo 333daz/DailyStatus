@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Status</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/commonStyles.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/status.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="javascript/status.js"></script>
+	<script type="text/javascript" src="javascript/statusHistory.js"></script>
 </head>
 <body>
 	<header>
@@ -45,14 +46,14 @@
 	    			<div class="subDiv">
 	    				<label class="subDivHead">Project</label>
 	    				<div>
-	    					<input type="text" class="statusInputFields" value="N/A" style="width: 300px;"></input>
+	    					<input type="text" class="statusInputFields" id="projectName" value="N/A"></input>
 	    				</div>
 	    			</div>
 
 	    			<div class="subDiv">
 	    				<label class="subDivHead">Activity type</label>
 	    				<div>
-	    					<select class="dropdownField" id="activityTypePicker" style="width: 175px;">
+	    					<select class="dropdownField" id="activityTypePicker">
 		    					
 		    				</select>
 	    				</div>
@@ -62,10 +63,10 @@
 	    			<div class="subDiv">
 	    				<label class="subDivHead">Time Spent (hours:minutes)</label>
 	    				<div>
-	    					<select class="dropdownField" id="hourPicker" style="width: 90px;">
+	    					<select class="dropdownField" id="hourPicker">
 		    					
 		    				</select>
-		    				<select class="dropdownField" id="minutePicker" style="width: 90px;">
+		    				<select class="dropdownField" id="minutePicker">
 		    					
 		    				</select>
 	    				</div>
@@ -75,7 +76,11 @@
 	    			<div class="subDiv">
 	    				<label class="subDivHead">Activity Description</label>
 	    				<div>
-	    					<textarea class="statusInputFields" rows="5" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234" style="width: 535px; height: 80px; resize: none;"></textarea>
+	    					<textarea id="activityDescription" class="statusInputFields" rows="5" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234"></textarea>
+	    					<div>
+	    						<label id="errorLabel">This field may not be blank</label>
+	    					</div>
+	    					
 	    					
 	    				</div>
 	    			</div>
@@ -112,11 +117,11 @@
 	    		<div style="clear: both;"></div>
 
     		</form>
-
+    		<div class="subHeadDiv"> My History</div>
     		<div id="historyDiv">
-    			<div class="subHeadDiv"> My History</div>
+    			
 
-    			<div class="dayHistoryDiv" id="day1">
+    			<!-- <div class="dayHistoryDiv" id="day1">
 
     				<div style="padding: 10px;">
 
@@ -148,16 +153,19 @@
 
     				<div style="clear: both;"></div>
     				
-    			</div>
+    			</div> -->
 
 	    	</div>
-    		
+    		<div style="clear: both;"></div>
     	</div>
 
     	
     	
     </main>
     <div style="clear: both;"></div>
+
+    <div id="notification">Status Saved</div>
+
     <footer>
     	
     </footer>
