@@ -110,7 +110,10 @@ function saveButtonPressed() {
         statusInstance.setValues();
         
         var historyInstance = new statusHistory(statusInstance);
-        historyInstance.createDayHistoryElement();
+        
+        var historySubDiv = document.createElement('div');
+        historySubDiv.innerHTML = historyInstance.domElement;
+        document.getElementById("historyDiv").insertBefore(historySubDiv, document.getElementById("historyDiv").firstElementChild);
         
         document.getElementById("activityDescription").value = "";
         savedNotification();
