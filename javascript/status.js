@@ -3,8 +3,6 @@ window.onload = function () {
    loadDropDownData();
 }
 
-
-
 function loadDropDownData() {
     
     populateDateDropdown();
@@ -110,18 +108,18 @@ function saveButtonPressed() {
     if (nullCheckFields() == false) {
         var statusInstance = new statusObject();
         statusInstance.setValues();
+        
         var historyInstance = new statusHistory(statusInstance);
-        var historySubDiv = document.createElement('div');
-        historySubDiv.innerHTML = historyInstance.domElement;
-        document.getElementById("historyDiv").insertBefore(historySubDiv, document.getElementById("historyDiv").firstElementChild);
+        historyInstance.createDayHistoryElement();
+        
         document.getElementById("activityDescription").value = "";
-        saveNotification();
+        savedNotification();
     }
     
 }
 
 
-function saveNotification() {
+function savedNotification() {
     document.getElementById("notification").style.right = "10px";
     setTimeout(function() {
         document.getElementById("notification").style.right = "-500px";
@@ -147,8 +145,8 @@ statusObject.prototype.setValues = function () {
   this.activityType = document.getElementById("activityTypePicker").options[document.getElementById("activityTypePicker").selectedIndex].text
   
   this.timeSpent = document.getElementById("hourPicker").options[document.getElementById("hourPicker").selectedIndex].text 
-  + ":" + 
-  document.getElementById("minutePicker").options[document.getElementById("minutePicker").selectedIndex].text;
+                   + ":" + 
+                   document.getElementById("minutePicker").options[document.getElementById("minutePicker").selectedIndex].text;
   
   this.activityDescription = document.getElementById("activityDescription").value;
   
@@ -173,7 +171,7 @@ function nullCheckFields() {
         return false;
     }
 }
-
+//get time in hh: mm : ss format
 function getFormatedTime(date) {
     var hh = (date.getHours() < 10? "0": "") + date.getHours();
     var mm = ((date.getMinutes()+1) < 10? "0": "") + (date.getMinutes()+1);
