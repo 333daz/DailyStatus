@@ -1,13 +1,36 @@
 var statusID =0
-var statusHistory = function (statusInstance) {
-    this.statusDate = statusInstance.statusDate;
-    this.projectName = statusInstance.projectName;
-    this.activityType = statusInstance.activityType;
-    this.timeSpent = statusInstance.timeSpent;
-    this.activityDescription = statusInstance.activityDescription;
-    this.postedDate = statusInstance.currentDate;
-    this.postedTime = statusInstance.currentTime;
-     this.domElement = "<div class=\"dayHistoryDiv\" id=\"day" + statusID++ + "\">"
+var statusHistory = function () {
+    statusDate: "";
+    projectName: "";
+    activityType: "";
+    timeSpent: "";
+    activityDescription: "";
+    postedDate: "";
+    postedTime: "";
+    domElement: "";
+    
+}
+
+statusHistory.prototype.setValues = function () {
+  this.statusDate = document.getElementById("datePicker").options[document.getElementById("datePicker").selectedIndex].text;
+  
+  this.projectName = document.getElementById("projectName").value;
+  
+  this.activityType = document.getElementById("activityTypePicker").options[document.getElementById("activityTypePicker").selectedIndex].text
+  
+  this.timeSpent = document.getElementById("hourPicker").options[document.getElementById("hourPicker").selectedIndex].text 
+                   + ":" + 
+                   document.getElementById("minutePicker").options[document.getElementById("minutePicker").selectedIndex].text;
+  
+  this.activityDescription = document.getElementById("activityDescription").value;
+  
+  var now = new Date();
+  
+  this.postedDate = getFormatedDate(now);
+  
+  this.postedTime = getFormatedTime(now);
+  
+  this.domElement = "<div class=\"dayHistoryDiv\" id=\"day" + statusID++ + "\">"
 
     				+ "<div style=\"padding: 10px;\">"
 
@@ -37,5 +60,4 @@ var statusHistory = function (statusInstance) {
     				+ "<div style=\"clear: both;\"></div>"
     				
     			+ "</div>";
-    
 }
