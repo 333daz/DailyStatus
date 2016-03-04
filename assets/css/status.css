@@ -1,0 +1,189 @@
+#headDiv {
+	float: left;
+	width: 200px;
+	padding: 20px 5px 5px 20px;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Avenir-Heavy";
+	color: #4f6776;
+	display: inline-block;
+}
+
+#contentDiv {
+	float: left;
+	margin: 10px;
+	padding: 10px;
+	max-width: 1200px;
+}
+
+.subHeadDiv {
+	width: 100%;
+	margin: 30px 10px 10px 30px;	
+	font-size: 15px;
+	font-weight: bold;
+	font-family: "Avenir-Heavy";
+}
+
+
+#statusInputDiv {
+	padding: 10px;
+	font-family: "Avenir";
+	width: 100%;
+}
+
+.subDiv {
+	float: left;
+	margin: 10px 20px;
+}
+
+.inputDivHead {
+	margin: 5px 0px;
+}
+
+.statusInputFields {
+	background-color: transparent;
+	border-radius: 0px;
+	border: 1px solid #929292;
+	box-sizing: border-box;
+	padding-left: 10px;
+	height: 30px;
+	font-size: 14px;
+}
+
+.statusInputFields:hover {
+	border-color: #4f73f0;
+}
+
+.dropdownField {
+
+	background-color: transparent;
+	border: 0px;
+	outline: 1px inset rgba(146,146,146,0.5);
+	box-sizing: border-box;
+	padding-left: 10px;
+	height: 30px;
+	font-size: 14px;
+}
+
+.dropdownField:hover {
+	outline: 1px inset #4f73f0;
+}
+
+#descriptionDiv {
+	width: 540px;
+	float: left;
+	color: #666;
+	font-size: 14px;
+}
+
+#errorLabel {
+	font-size: 12px;
+	color: red;
+	visibility: hidden;
+}
+
+#projectName {
+	width: 300px;
+}
+
+#activityTypePicker {
+	width: 175px;
+}
+
+#hourPicker {
+	width: 90px;
+}
+
+#minutePicker {
+	width: 90px;
+}
+
+#activityDescription {
+	width: 535px;
+	height: 80px;
+	resize: none;
+}
+
+#saveButton {
+	background-color: #296a92;
+	width: 70px;
+	height: 30px;
+	border-width: 0px;
+	outline: 0px;
+	border-radius: 5px;
+	margin: 10px;
+	font-size: 14px;
+	color: white;
+	font-weight: bold;
+}
+
+#historyDiv {
+	margin-top: 40px;
+
+}
+
+.dayHistoryDiv {
+	border: 1px solid #D6D5D5;
+	margin-bottom: 10px;
+	font-family: "Avenir";
+	color: #666;
+	padding: 10px 10px 10px 20px;
+	animation: load 1s;
+}
+
+@keyframes load {
+	from {opacity: 0}
+	to {opacity: 1}
+}
+
+.leftDiv {
+	float: left;
+	margin-right: 10px;
+	width: 15%;
+	font-size: smaller;
+	box-sizing: border-box;
+}
+
+.middleDiv {
+	box-sizing: border-box;
+	float: left;
+	margin: 0px 10px;
+	width: 65%;
+	height: 90px;
+	font-size: initial;
+	font-weight: bold;
+	border-left: 1px solid #D6D5D5;
+	border-right: 1px solid #D6D5D5;
+}
+
+.description {
+	padding-left: 20px;
+}
+
+.rightDiv {
+	float: left;
+	font-size: smaller;
+}
+
+.projectName {
+	padding-top: 5px;
+}
+
+#notification {
+	position: fixed;
+	top: 10px;
+	right: -500px;
+	width: 300px;
+	height: 100px;
+	background-color: rgba(75, 149, 75, 0.9);
+	color: white;
+	font-weight: bolder;
+	font-size: larger;
+	font-family: "Avenir-Heavy";
+	transition: right 0.5s;
+	box-sizing: border-box;
+	padding-left: 10px;
+	padding-top: 30px;
+	border-radius: 3px;
+
+}
