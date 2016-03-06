@@ -50,21 +50,6 @@ function parseJSONObject(jsonURL) {
   return parsedObject.list;
 }
 
-//populate the dropdown using parsed object
-
-// function populateDropdown(dropdown, parsedObject) {
-    
-//     for(var i = 0; i < parsedObject.list.length; i++) {
-//           var option = parsedObject.list[i];
-//           var optionElement = document.createElement("option");
-//           optionElement.textContent = option;
-//           optionElement.value = option;
-//           if ((dropdown.id == "activityTypePicker") && (i == 5)) {
-//               optionElement.selected = true;
-//           }
-//           dropdown.appendChild(optionElement);
-//       }
-// }
 
 function populateDateDropdown() {
     
@@ -183,7 +168,7 @@ function getFormatedTime(date) {
 
 var projectNames = parseJSONObject("assets/json/projectNames.json");
 
-function textChanged() {
+function projectNameTextChhanged() {
     document.getElementById("projectList").innerHTML = "";
     for(var i = 0; i < projectNames.length; i++) {
         if ((projectNames[i].toLowerCase()).indexOf((document.getElementById("projectName").value).toLowerCase()) == 0) {
