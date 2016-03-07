@@ -144,6 +144,7 @@ function resetInputFields() {
     document.getElementById("activityDescription").value = "";
     document.getElementById("activityTypePicker").selectedIndex = 5;
     document.getElementById("projectName").value = "N/A";
+    document.getElementById("minutePicker").selectedIndex = 0;
     
     if (document.getElementById("hourPicker").selectedIndex < 8) {
         document.getElementById("hourPicker").selectedIndex = 8 -document.getElementById("hourPicker").selectedIndex;
