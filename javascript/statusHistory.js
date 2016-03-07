@@ -18,9 +18,9 @@ statusHistory.prototype.setValues = function () {
   
   this.activityType = document.getElementById("activityTypePicker").options[document.getElementById("activityTypePicker").selectedIndex].text
   
-  this.timeSpent = document.getElementById("hourPicker").options[document.getElementById("hourPicker").selectedIndex].text 
-                   + ":" + 
-                   document.getElementById("minutePicker").options[document.getElementById("minutePicker").selectedIndex].text;
+  this.hours = document.getElementById("hourPicker").options[document.getElementById("hourPicker").selectedIndex].text;
+  
+  this.minutes = document.getElementById("minutePicker").options[document.getElementById("minutePicker").selectedIndex].text;
   
   this.activityDescription = document.getElementById("activityDescription").value;
   
@@ -32,7 +32,7 @@ statusHistory.prototype.setValues = function () {
   
   this.domElement = "<div class=\"dayHistoryDiv\" id=\"status" + statusID++ + "\">"
 
-    				+ "<div style=\"padding: 10px;\">"
+    				
 
     					+ "<div class=\"leftDiv\">"
 
@@ -47,16 +47,15 @@ statusHistory.prototype.setValues = function () {
 
 
 	    				+ "<div class=\"middleDiv\">"
-	    					+ "<div class=\"description\" style=\"padding-left: 20px;\">" + this.activityDescription + "</div>"
+	    					+ "<textarea  class=\"description\" rows=\"5\" readonly>" + this.activityDescription + "</textarea>"
 	    				+ "</div>"
 
 	    				+ "<div class=\"rightDiv\">"
-	    					+ "<div class=\"time\">" + this.timeSpent + " hour(s)</div>"
+	    					+ "<div class=\"time\">" + this.hours + ":" + this.minutes + " hour(s)</div>"
 	    					+ "<div class=\"activityType\">" + this.activityType + "</div>"
 	    					+ "<div class=\"projectName\" style=\"padding-top: 5px;\">" + this.projectName + "</div>"
 	    				+ "</div>"
 
-    				+ "</div>"
     				+ "<div style=\"clear: both;\"></div>"
     				
     			+ "</div>";

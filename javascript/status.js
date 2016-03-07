@@ -98,6 +98,8 @@ function populateTimeDropdown() {
       }
 }
 
+var historyInstanceArray= [];
+
 //Save button Action
 function saveButtonPressed() {
     
@@ -108,14 +110,17 @@ function saveButtonPressed() {
         var historySubDiv = document.createElement('div');
         historySubDiv.innerHTML = historyInstance.domElement;
         document.getElementById("historyDiv").insertBefore(historySubDiv, document.getElementById("historyDiv").firstElementChild);
+        historyInstanceArray.push(historyInstance);
         
-        resetInputFields();
+        console.log(historyInstanceArray);
+        
+        resetInputFields(historyInstance);
         savedNotification();
     }
     
 }
 
-
+// show save succesful notification
 function savedNotification() {
     document.getElementById("notification").style.right = "10px";
     setTimeout(function() {
@@ -139,15 +144,22 @@ function nullCheckFields() {
 }
 
 //set input field values after save
-function resetInputFields() {
+function resetInputFields(currentHistoryInstance) {
     
     document.getElementById("activityDescription").value = "";
     document.getElementById("activityTypePicker").selectedIndex = 5;
     document.getElementById("projectName").value = "N/A";
     document.getElementById("minutePicker").selectedIndex = 0;
+    descriptionTextChanged();
+    var totalTimeSpent = 0;
+    for(var i =0; i < historyInstanceArray.length; i++) {
+        if (historyInstanceArray[i].statusDate == currentHistoryInstance.statusDate) {
+            totalTimeSpent = (totalTimeSpent + parseInt(historyInstanceArray[i].hours));
+        }
+    }
     
-    if (document.getElementById("hourPicker").selectedIndex < 8) {
-        document.getElementById("hourPicker").selectedIndex = 8 -document.getElementById("hourPicker").selectedIndex;
+    if (totalTimeSpent < 8) {
+        document.getElementById("hourPicker").selectedIndex = 8 - totalTimeSpent;
     }
     
     else {
@@ -170,7 +182,9 @@ function getFormatedTime(date) {
 
 var projectNames = parseJSONObject("assets/json/projectNames.json");
 
-function projectNameTextChhanged() {
+
+// project name changed action
+function projectNameTextChanged() {
     document.getElementById("projectList").innerHTML = "";
     for(var i = 0; i < projectNames.length; i++) {
         if ((projectNames[i].toLowerCase()).indexOf((document.getElementById("projectName").value).toLowerCase()) == 0) {
@@ -183,5 +197,30 @@ function projectNameTextChhanged() {
            
            
         }
+    }
+}
+
+//uodate description count
+function descriptionTextChanged() {
+    document.getElementById("descripionCount").innerText = 180 - document.getElementById("activityDescription").value.length;
+      
+}
+
+// Date changed action
+function dateChanged() {
+    var totalTimeSpent = 0;
+    for(var i =0; i < historyInstanceArray.length; i++) {
+        if (historyInstanceArray[i].statusDate == document.getElementById("datePicker").options[document.getElementById("datePicker").selectedIndex].text) {
+            totalTimeSpent = (totalTimeSpent + parseInt(historyInstanceArray[i].hours));
+        }
+    }
+    
+    if (totalTimeSpent < 8) {
+        document.getElementById("hourPicker").selectedIndex = 8 - totalTimeSpent;
+    }
+    
+    else {
+        document.getElementById("hourPicker").selectedIndex = 8;
+        
     }
 }

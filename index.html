@@ -37,7 +37,7 @@
 	    			<div class="subDiv">
 	    				<label class="inputDivHead">Date</label>
 	    				<div>
-	    					<select class="dropdownField" id="datePicker" style="width: 160px;">
+	    					<select class="dropdownField" id="datePicker" oninput="dateChanged()">
 		    					
 		    				</select>
 	    				</div>
@@ -47,7 +47,7 @@
 	    				<label class="subDivHead">Project</label>
 	    				<div>
 
-	    					<input list= "projectList" id="projectName" class="statusInputFields" autocomplete="off" oninput="projectNameTextChhanged()" value="N/A">
+	    					<input list= "projectList" id="projectName" class="statusInputFields" autocomplete="off" oninput="projectNameTextChanged()" value="N/A">
 	    					<datalist id="projectList">
 	    							<option>N/A</option>
 	    						</datalist>
@@ -81,12 +81,14 @@
 
 
 	    			<div class="subDiv">
-	    				<label class="subDivHead">Activity Description</label>
+	    				<label class="subDivHead">Activity Description </label>
 	    				<div>
-	    					<textarea id="activityDescription" class="statusInputFields" rows="5" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234" oninput="textChanged()"></textarea>
+	    					<textarea id="activityDescription" class="statusInputFields" rows="5" maxlength="180" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234" oninput="descriptionTextChanged()"></textarea>
 	    					<div>
 	    						<label id="errorLabel">This field may not be blank</label>
 	    					</div>
+
+	    					<div id="descripionCount" style="font-weight: bolder;">180</div>
 	    					
 	    					
 	    				</div>
