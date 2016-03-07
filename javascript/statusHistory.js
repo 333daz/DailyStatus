@@ -30,7 +30,7 @@ statusHistory.prototype.setValues = function () {
   
   this.postedTime = getFormatedTime(now);
   
-  this.domElement = "<div class=\"dayHistoryDiv\" id=\"day" + statusID++ + "\">"
+  this.domElement = "<div class=\"dayHistoryDiv\" id=\"status" + statusID++ + "\">"
 
     				+ "<div style=\"padding: 10px;\">"
 

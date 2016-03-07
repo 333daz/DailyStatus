@@ -142,6 +142,8 @@ function nullCheckFields() {
 function resetInputFields() {
     
     document.getElementById("activityDescription").value = "";
+    document.getElementById("activityTypePicker").selectedIndex = 5;
+    document.getElementById("projectName").value = "N/A";
     
     if (document.getElementById("hourPicker").selectedIndex < 8) {
         document.getElementById("hourPicker").selectedIndex = 8 -document.getElementById("hourPicker").selectedIndex;
@@ -149,7 +151,6 @@ function resetInputFields() {
     
     else {
         document.getElementById("hourPicker").selectedIndex = 8;
-        document.getElementById("activityTypePicker").selectedIndex = 5;
         if (document.getElementById("datePicker").selectedIndex < 7) {
             document.getElementById("datePicker").selectedIndex++;
         }
