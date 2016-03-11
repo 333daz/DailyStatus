@@ -1,9 +1,9 @@
 window.onload = function () {
     
-   loadDropDownData();
+   populateDropdowns();
 }
 
-function loadDropDownData() {
+function populateDropdowns() {
     
     populateDateDropdown();
     
@@ -12,39 +12,13 @@ function loadDropDownData() {
     var jsonURLs = ["assets/json/searchType.json", "assets/json/activityType.json"];
     var dropdownIDs = ["searchTypePicker", "activityTypePicker"];
     
-    for(var i = 0; i < 2; i++) {
-       parseJSONObject(dropdownIDs[i], jsonURLs[i]);
-    }
-}
-
-// parse JSON objects
-function parseJSONObject(dropdownID, jsonURL) {
-    var list;
-    var request = new XMLHttpRequest();
-    
-    request.onreadystatechange = function() {
-    if (request.readyState == 4 && request.status == 200) {
+    for(var j = 0; j < 2; j++) {
+      var parsedList = parseJSONObject(jsonURLs[j]);
       
-      var parsedObject = JSON.parse(request.responseText);
-      var dropdown = document.getElementById(dropdownID);
+      var dropdown = document.getElementById(dropdownIDs[j]);
       
-      
-      populateDropdown(dropdown, parsedObject);
-    }
-    
-  };
-  request.open("GET", jsonURL, true);
-  request.send();
-  
-  return list;
-}
-
-//populate the dropdown using parsed object
-
-function populateDropdown(dropdown, parsedObject) {
-    
-    for(var i = 0; i < parsedObject.list.length; i++) {
-          var option = parsedObject.list[i];
+      for(var i = 0; i < parsedList.length; i++) {
+          var option = parsedList[i];
           var optionElement = document.createElement("option");
           optionElement.textContent = option;
           optionElement.value = option;
@@ -53,7 +27,29 @@ function populateDropdown(dropdown, parsedObject) {
           }
           dropdown.appendChild(optionElement);
       }
+      
+      
+    }
 }
+
+// parse JSON objects
+function parseJSONObject(jsonURL) {
+    
+    var request = new XMLHttpRequest();
+    var parsedObject;
+    request.onreadystatechange = function() {
+    if (request.readyState == 4 && request.status == 200) {
+      
+      parsedObject = JSON.parse(request.responseText);
+    }
+    
+  };
+  request.open("GET", jsonURL, false);
+  request.send();
+  
+  return parsedObject.list;
+}
+
 
 function populateDateDropdown() {
     
@@ -102,59 +98,34 @@ function populateTimeDropdown() {
       }
 }
 
+var historyInstanceArray= [];
+
 //Save button Action
 function saveButtonPressed() {
     
     if (nullCheckFields() == false) {
-        var statusInstance = new statusObject();
-        statusInstance.setValues();
         
-        var historyInstance = new statusHistory(statusInstance);
-        historyInstance.createDayHistoryElement();
+        var historyInstance = new statusHistory();
+        historyInstance.setValues();
+        var historySubDiv = document.createElement('div');
+        historySubDiv.innerHTML = historyInstance.domElement;
+        document.getElementById("historyDiv").insertBefore(historySubDiv, document.getElementById("historyDiv").firstElementChild);
+        historyInstanceArray.push(historyInstance);
         
-        document.getElementById("activityDescription").value = "";
+        console.log(historyInstanceArray);
+        
+        resetInputFields(historyInstance);
         savedNotification();
     }
     
 }
 
-
+// show save succesful notification
 function savedNotification() {
     document.getElementById("notification").style.right = "10px";
     setTimeout(function() {
         document.getElementById("notification").style.right = "-500px";
     }, 5000);
-}
-
-// object
-var statusObject = function () {
-    statusDate: "";
-    projectName: "";
-    activityType: "";
-    timeSpent: "";
-    activityDescription: "";
-    currentDate: "";
-    currentTime: "";
-} 
-
-statusObject.prototype.setValues = function () {
-  this.statusDate = document.getElementById("datePicker").options[document.getElementById("datePicker").selectedIndex].text;
-  
-  this.projectName = document.getElementById("projectName").value;
-  
-  this.activityType = document.getElementById("activityTypePicker").options[document.getElementById("activityTypePicker").selectedIndex].text
-  
-  this.timeSpent = document.getElementById("hourPicker").options[document.getElementById("hourPicker").selectedIndex].text 
-                   + ":" + 
-                   document.getElementById("minutePicker").options[document.getElementById("minutePicker").selectedIndex].text;
-  
-  this.activityDescription = document.getElementById("activityDescription").value;
-  
-  var now = new Date();
-  
-  this.currentDate = getFormatedDate(now);
-  
-  this.currentTime = getFormatedTime(now);
 }
 
 // null ckeck textFields
@@ -171,10 +142,85 @@ function nullCheckFields() {
         return false;
     }
 }
+
+//set input field values after save
+function resetInputFields(currentHistoryInstance) {
+    
+    document.getElementById("activityDescription").value = "";
+    document.getElementById("activityTypePicker").selectedIndex = 5;
+    document.getElementById("projectName").value = "N/A";
+    document.getElementById("minutePicker").selectedIndex = 0;
+    descriptionTextChanged();
+    var totalTimeSpent = 0;
+    for(var i =0; i < historyInstanceArray.length; i++) {
+        if (historyInstanceArray[i].statusDate == currentHistoryInstance.statusDate) {
+            totalTimeSpent = (totalTimeSpent + parseInt(historyInstanceArray[i].hours));
+        }
+    }
+    
+    if (totalTimeSpent < 8) {
+        document.getElementById("hourPicker").selectedIndex = 8 - totalTimeSpent;
+    }
+    
+    else {
+        document.getElementById("hourPicker").selectedIndex = 8;
+        if (document.getElementById("datePicker").selectedIndex < 7) {
+            document.getElementById("datePicker").selectedIndex++;
+        }
+        
+    }
+}
+
+
 //get time in hh: mm : ss format
 function getFormatedTime(date) {
     var hh = (date.getHours() < 10? "0": "") + date.getHours();
     var mm = ((date.getMinutes()+1) < 10? "0": "") + (date.getMinutes()+1);
     var ss = ((date.getSeconds()+1) < 10? "0": "") + (date.getSeconds()+1);
     return hh + ":" + mm + ":" + ss;
+}
+
+var projectNames = parseJSONObject("assets/json/projectNames.json");
+
+
+// project name changed action
+function projectNameTextChanged() {
+    document.getElementById("projectList").innerHTML = "";
+    for(var i = 0; i < projectNames.length; i++) {
+        if ((projectNames[i].toLowerCase()).indexOf((document.getElementById("projectName").value).toLowerCase()) == 0) {
+           
+           var optionElement = document.createElement("option");
+          optionElement.textContent = projectNames[i];
+          optionElement.innerText = projectNames[i];
+          
+          document.getElementById("projectList").appendChild(optionElement);
+           
+           
+        }
+    }
+}
+
+//uodate description count
+function descriptionTextChanged() {
+    document.getElementById("descripionCount").innerText = 180 - document.getElementById("activityDescription").value.length;
+      
+}
+
+// Date changed action
+function dateChanged() {
+    var totalTimeSpent = 0;
+    for(var i =0; i < historyInstanceArray.length; i++) {
+        if (historyInstanceArray[i].statusDate == document.getElementById("datePicker").options[document.getElementById("datePicker").selectedIndex].text) {
+            totalTimeSpent = (totalTimeSpent + parseInt(historyInstanceArray[i].hours));
+        }
+    }
+    
+    if (totalTimeSpent < 8) {
+        document.getElementById("hourPicker").selectedIndex = 8 - totalTimeSpent;
+    }
+    
+    else {
+        document.getElementById("hourPicker").selectedIndex = 8;
+        
+    }
 }
